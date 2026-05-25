@@ -1,10 +1,10 @@
-# API Gestor de tareas
+# API Whishlist
 
 Proyecto del Módulo 2 — Full Stack Dev Bootcamp.
 
 ## Qué es
 
-una API para gestionar inicios de sesión, agregar tareas, eliminarlas, marcarlas como completadas o crear avisos de fecha
+una API para gestionar inicios de sesión, agregar juegos favoritos, deseados, en colección y poder borrarlos también de cada categoría
 
 ## Stack
 
