@@ -8,5 +8,7 @@ const validarJuego = require('../middlewares/validarJuego')
 router.get('/', juegosController.obtenerJuegos);
 router.get('/:id', juegosController.obtenerJuegoID)
 router.post('/crear', validarJuego, juegosController.crearJuego);
+router.delete('/borrar/:id', juegosController.borrarJuego)
+router.put('/cambiar/:id', juegosController.actualizarJuego);
 
 module.exports = router;
