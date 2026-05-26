@@ -32,12 +32,39 @@ const crearJuego = (req, res) => {
     };
     videojuegos.push(nuevoJuego)
 
-    return res.status(200).json(nuevoJuego)
+    return res.status(201).json(nuevoJuego)
+}
+
+const borrarJuego = (req, res) => {
+    const id = Number(req.params.id)
+    const videojuegoFind = videojuegos.find(p => p.id === id)
+    if (videojuegoFind){
+        const NuevoVideojuegos = videojuegos.filter(p => p.id !== id )
+        videojuegos = NuevoVideojuegos
+
+        return res.status(200).json(videojuegoFind)
+    } else{
+        return res.status(404).json()
+    }
+}
+
+const actualizarJuego = (req, res) => {
+    const id = Number(req.params.id)
+    const videojuegoFind = videojuegos.find(p => p.id === id)
+    if (videojuegoFind){
+    videojuegos[videojuegoFind].nombre = req.body.nombre
+    videojuegos[videojuegoFind].precio = req.body.precio
+        return res.json(videojuegos)
+    } else{
+        return res.status(404).json()
+    }
 }
 
 
 module.exports = {
     obtenerJuegos,
     obtenerJuegoID,
-    crearJuego
+    crearJuego,
+    borrarJuego,
+    actualizarJuego
 }
