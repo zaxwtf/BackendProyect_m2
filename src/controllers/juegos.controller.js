@@ -13,8 +13,8 @@ const obtenerJuegos = (req, res) => {
 }
 
 const obtenerJuegoID = (req, res) =>{
-    const id = req.params.id
-    const videojuegoFind = videojuegos.find(p => p.id === Number(id))
+    const id = Number(req.params.id)
+    const videojuegoFind = videojuegos.find(p => p.id === id)
     if (videojuegoFind){
         return res.json(videojuegoFind)
     } else{
@@ -51,9 +51,10 @@ const borrarJuego = (req, res) => {
 const actualizarJuego = (req, res) => {
     const id = Number(req.params.id)
     const videojuegoFind = videojuegos.find(p => p.id === id)
+    const indice = videojuegos.indexOf(videojuegoFind)
     if (videojuegoFind){
-    videojuegos[videojuegoFind].nombre = req.body.nombre
-    videojuegos[videojuegoFind].precio = req.body.precio
+    videojuegos[indice].nombre = req.body.nombre
+    videojuegos[indice].precio = req.body.precio
         return res.json(videojuegos)
     } else{
         return res.status(404).json()
