@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/zaxwtf/BackendProyect_m2#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1"
   },
   "devDependencies": {
