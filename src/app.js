@@ -8,7 +8,7 @@ app.use(express.json())
 
 
 //rutas globales
-app.use('/juegos', rutasJuegos)
+app.use('/api/juegos', rutasJuegos)
 
 
 module.exports = app;
