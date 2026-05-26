@@ -7,5 +7,5 @@ app.listen(PORT, ()=>{
 });
 
 app.get('/health', (req, res) =>{
-    res.status(200).json("Status OK")
+    res.status(200).json({status: ok})
 })
