@@ -1,20 +1,30 @@
-//Datos de prueba
-let videojuegos = [
-    {id: 1, nombre: "God of War", precio: 30},
-    {id: 2, nombre: "Red Dead Redemption 2", precio: 40},
-    {id: 3, nombre: "Pokemon diamante", precio: 20},
-    {id: 4, nombre: "Mario Galaxy", precio: 25},
-    {id: 5, nombre: "Sonic Adventure", precio: 35}
-];
 
+const fs = require('node:fs').promises;
+const path = require('path')
 
-const obtenerJuegos = (req, res) => {
-    return res.json(videojuegos)
+const RUTA = path.join(__dirname, "../../videojuegos.json")
+
+async function cargarJuegos() {
+    const contenido = await fs.readFile(RUTA, "utf-8");
+    return JSON.parse(contenido)
 }
 
-const obtenerJuegoID = (req, res) =>{
+
+async function guardarJuegos(juegos) {
+    await fs.writeFile(RUTA, JSON.stringify(juegos, null, 2), "utf-8")
+}
+
+
+
+const obtenerJuegos = async (req, res) => {
+    const juegos = await cargarJuegos()
+    return res.json(juegos)
+}
+
+const obtenerJuegoID = async (req, res) =>{
+    const juegos = await cargarJuegos()
     const id = Number(req.params.id)
-    const videojuegoFind = videojuegos.find(p => p.id === id)
+    const videojuegoFind = juegos.find(p => p.id === id)
     if (videojuegoFind){
         return res.json(videojuegoFind)
     } else{
@@ -24,23 +34,26 @@ const obtenerJuegoID = (req, res) =>{
 }
 
 
-const crearJuego = (req, res) => {
+const crearJuego = async (req, res) => {
+    const juegos = await cargarJuegos()
     let nuevoJuego = {
-        id: videojuegos.length + 1,
+        id: juegos.length + 1,
         nombre: req.body.nombre,
         precio: req.body.precio
     };
-    videojuegos.push(nuevoJuego)
+    juegos.push(nuevoJuego)
+    const NuevoJSON = await guardarJuegos(juegos)
 
     return res.status(201).json(nuevoJuego)
 }
 
-const borrarJuego = (req, res) => {
+const borrarJuego = async (req, res) => {
+    const juegos = await cargarJuegos()
     const id = Number(req.params.id)
-    const videojuegoFind = videojuegos.find(p => p.id === id)
+    const videojuegoFind = juegos.find(p => p.id === id)
     if (videojuegoFind){
-        const NuevoVideojuegos = videojuegos.filter(p => p.id !== id )
-        videojuegos = NuevoVideojuegos
+        const NuevoVideojuegos = juegos.filter(p => p.id !== id )
+        const NuevoJSON = await guardarJuegos(NuevoVideojuegos)
 
         return res.status(200).json(videojuegoFind)
     } else{
@@ -48,14 +61,17 @@ const borrarJuego = (req, res) => {
     }
 }
 
-const actualizarJuego = (req, res) => {
+const actualizarJuego = async (req, res) => {
+    const juegos = await cargarJuegos()
     const id = Number(req.params.id)
-    const videojuegoFind = videojuegos.find(p => p.id === id)
-    const indice = videojuegos.indexOf(videojuegoFind)
+    const videojuegoFind = juegos.find(p => p.id === id)
+    const indice = juegos.indexOf(videojuegoFind)
     if (videojuegoFind){
-    videojuegos[indice].nombre = req.body.nombre
-    videojuegos[indice].precio = req.body.precio
-        return res.json(videojuegos)
+    juegos[indice].nombre = req.body.nombre
+    juegos[indice].precio = req.body.precio
+    await guardarJuegos(juegos)
+    
+        return res.json(juegos)
     } else{
         return res.status(404).json()
     }
