@@ -30,7 +30,7 @@ async function obtenerJuegoID (req, res) {
 
 
 async function crearJuego (req, res) {
-    ({nombre, precio} = req.body)
+    const {nombre, precio} = req.body
     try{
         const juego = await modeljuegos.crearJuego({nombre, precio})
         return res.status(201).json(juego)
