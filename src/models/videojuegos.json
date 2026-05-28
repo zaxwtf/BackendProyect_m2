@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "nombre": "God of war",
+    "precio": 35
+  },
+  {
+    "id": 2,
+    "nombre": "Pokemon Perla",
+    "precio": 45
+  }
+]
