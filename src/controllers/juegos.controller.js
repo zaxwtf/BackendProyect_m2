@@ -1,50 +1,43 @@
-
-const fs = require('node:fs').promises;
-const path = require('path')
-
-const RUTA = path.join(__dirname, "../../videojuegos.json")
-
-async function cargarJuegos() {
-    const contenido = await fs.readFile(RUTA, "utf-8");
-    return JSON.parse(contenido)
-}
+const modeljuegos = require('../models/videojuegos.models')
 
 
-async function guardarJuegos(juegos) {
-    await fs.writeFile(RUTA, JSON.stringify(juegos, null, 2), "utf-8")
-}
-
-
-
-const obtenerJuegos = async (req, res) => {
-    const juegos = await cargarJuegos()
-    return res.json(juegos)
-}
-
-const obtenerJuegoID = async (req, res) =>{
-    const juegos = await cargarJuegos()
-    const id = Number(req.params.id)
-    const videojuegoFind = juegos.find(p => p.id === id)
-    if (videojuegoFind){
-        return res.json(videojuegoFind)
-    } else{
-        return res.status(404).json()
+async function obtenerJuegos (req, res) {
+    try{
+        const juegos = await modeljuegos.getAllVideogames()
+        return res.status(200).json(juegos)
+    } catch (error){
+        console.error("error al listar los juegos")
+        return res.status(500).json({"error": "Error interno del servidor"})
     }
-    
+}
+
+async function obtenerJuegoID (req, res) {
+    try{
+        const id = Number(req.params.id)
+        const juego = await modeljuegos.getVideojuegosById(id)
+        console.log(juego)
+        if(!juego) {
+            return res.status(404).json({"error": "ID invalido"})
+        }
+        return res.status(200).json(juego)
+    } catch (error){
+        console.error("Error al obtener juego")
+        return res.status(500).json({"error": "Error interno del servidor"})
+    }
+
 }
 
 
-const crearJuego = async (req, res) => {
-    const juegos = await cargarJuegos()
-    let nuevoJuego = {
-        id: juegos.length + 1,
-        nombre: req.body.nombre,
-        precio: req.body.precio
-    };
-    juegos.push(nuevoJuego)
-    const NuevoJSON = await guardarJuegos(juegos)
 
-    return res.status(201).json(nuevoJuego)
+async function crearJuego (req, res) {
+    ({nombre, precio} = req.body)
+    try{
+        const juego = await modeljuegos.crearJuego({nombre, precio})
+        return res.status(201).json(juego)
+    }catch(error){
+        console.error("Error al crear juego")
+        return res.status(500).json({"error": "Error interno del servidor"})
+    }
 }
 
 const borrarJuego = async (req, res) => {
