@@ -1,6 +1,7 @@
 const express = require('express')
 const rutasJuegos = require('./routes/juegos.routes')
 const rutasUsuarios = require('./routes/usuarios.routes')
+const cors = require('cors')
 
 const app = express()
 
