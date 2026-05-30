@@ -48,7 +48,7 @@ async function updateJuegos(id, data) {
     return juegos[indice]
 }
 
-async function deleteData(id) {
+async function deleteGame(id) {
 
     const juegos = await leerVideojuegos()
     const videojuegoFind = juegos.find(p => p.id === id)
@@ -65,5 +65,5 @@ module.exports = {
     getVideojuegosById,
     crearJuego,
     updateJuegos,
-    deleteData
+    deleteGame
 }
