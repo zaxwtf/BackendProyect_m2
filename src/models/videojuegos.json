@@ -8,5 +8,10 @@
     "id": 2,
     "nombre": "Pokemon Perla",
     "precio": 45
+  },
+  {
+    "id": 3,
+    "nombre": "Kingdom Hearts 1",
+    "precio": 48
   }
 ]
