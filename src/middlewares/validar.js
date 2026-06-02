@@ -1,17 +1,37 @@
-const {body} = require('express-validator')
+const { body, validationResult } = require('express-validator')
 
+const genders = [
+    "lucha",
+    "rpg",
+    "arcade",
+    "plataformas",
+    "disparos",
+    "simulacion",
+    "estrategia",
+    "a_rpg"
+]
 
-function validate(req, res, next){
-    console.log("entrada validate")
+const validarJuego = [
+    body('nombre')
+        .notEmpty().withMessage('El juego debe tener nombre'),
+    body('precio')
+        .notEmpty().withMessage('El juego debe tener precio')
+        .isNumeric().withMessage('El precio debe ser un número'),
+    body('genero')
+        .notEmpty().withMessage('El juego debe tener género')
+        .custom(genero => genders.includes(genero))
+        .withMessage('El juego debe tener un género válido')
+]
+
+function validate(req, res, next) {
     const errors = validationResult(req)
-    if(!errors.isEmpty()){
-        return res.status(422).json({errores: errors.array()})
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errores: errors.array() })
     }
     next()
-    console.log("salida validate")
 }
 
-
 module.exports = {
+    validarJuego,
     validate
 }
