@@ -11,6 +11,14 @@ const gameSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        genero: {
+            type: String,
+            required: true
+        },
+        completado: {
+            type: Boolean,
+            required: true
+        },
     },
     {
         timestamps: true
