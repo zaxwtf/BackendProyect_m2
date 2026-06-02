@@ -29,9 +29,9 @@ async function obtenerJuegoID (req, res) {
 
 
 async function crearJuego (req, res) {
-    const {nombre, precio} = req.body
+    const {nombre, precio, genero, completado} = req.body
     try{
-        const juego = await modeljuegos.crearJuego({nombre, precio})
+        const juego = await modeljuegos.crearJuego({nombre, precio, genero, completado})
         return res.status(201).json(juego)
     }catch(error){
         console.error("Error al crear juego")
@@ -55,8 +55,8 @@ async function borrarJuego( req, res) {
 
 async function actualizarJuego (req, res) {
     try{
-        const {nombre, precio} = req.body
-        const juego = await modeljuegos.updateJuegos(req.params.id, {nombre, precio})
+        const {nombre, precio, genero, completado} = req.body
+        const juego = await modeljuegos.updateJuegos(req.params.id, {nombre, precio, genero, completado})
         if(!juego) {
             return res.status(404).json({"error": "ID invalido"})
         }
