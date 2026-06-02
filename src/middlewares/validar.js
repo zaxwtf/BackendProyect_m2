@@ -23,6 +23,17 @@ const validarJuego = [
         .withMessage('El juego debe tener un género válido')
 ]
 
+const validarUser = [
+    body('nombre')
+        .notEmpty().withMessage('El usuario debe tener nombre'),
+    body('apellido1')
+        .notEmpty().withMessage('El usuario debe tener por lo menos el primer apellido'),
+    body('userName')
+        .notEmpty().withMessage('El usuario debe tener nombre de usuario'),
+    body('email')
+        .notEmpty().isEmail().withMessage('El usuario debe tener un correo valido'),
+]
+
 function validate(req, res, next) {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
