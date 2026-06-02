@@ -34,7 +34,7 @@ async function crearJuego (req, res) {
         const juego = await modeljuegos.crearJuego({nombre, precio, genero, completado})
         return res.status(201).json(juego)
     }catch(error){
-        console.error("Error al crear juego")
+        console.error("Error al crear juego", error)
         return res.status(500).json({"error": "Error interno del servidor"})
     }
 }

@@ -10,6 +10,8 @@ const genders = [
 ]
 
 
+
+
 const validarProducto = (req, res, next) =>{
     const {nombre, precio, genero} = req.body;
     if (!nombre || !precio || !genero){

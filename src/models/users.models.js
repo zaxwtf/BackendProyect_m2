@@ -36,7 +36,8 @@ async function getUsersById(id) {
 }
 
 async function getUsersByEmail(email) {
-    return await User.find(User => User.email === email)
+    console.log(User)
+    await User.findOne({email : email})
 }
 
 async function crearUser(data) {
