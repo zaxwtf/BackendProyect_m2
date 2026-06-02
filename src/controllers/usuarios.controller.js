@@ -16,12 +16,14 @@ async function obtenerUserById(req, res) {
 
 
 async function obtenerUserByEmail(req, res) {
-    const {email} = req.body.email
+    const email = req.query.email
     try{
-        console.log("email", email)
-        //const User = await modelUsers.getUsersByEmail(email)
+        if (!email) {
+            return res.status(400).json("Falta el email para la búsqueda")
+        }
+        const User = await modelUsers.getUsersByEmail(email)
         if (!User){
-            return res.status(404).json("Error del usuario")
+            return res.status(404).json("Usuario no encontrado")
         }
         return res.status(200).json(User)
     }catch(error){
