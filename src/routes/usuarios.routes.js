@@ -7,7 +7,7 @@ const validarUsuario = require('../middlewares/validarUser');
 //Rutas usuarios
 
 router.post('/crear', usuariosController.crearUser);
-router.get('/:id', usuariosController.obtenerUserById)
 router.get('/email', usuariosController.obtenerUserByEmail)
+router.get('/:id', usuariosController.obtenerUserById)
 
 module.exports = router;
