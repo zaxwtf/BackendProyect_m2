@@ -44,5 +44,6 @@ function validate(req, res, next) {
 
 module.exports = {
     validarJuego,
+    validarUser,
     validate
 }
