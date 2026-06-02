@@ -13,7 +13,7 @@ async function obtenerJuegos (req, res) {
 
 async function obtenerJuegoID (req, res) {
     try{
-        const id = Number(req.params.id)
+        const id = req.params.id
         const juego = await modeljuegos.getVideojuegosById(id)
         if(!juego) {
             return res.status(404).json({"error": "ID invalido"})
@@ -41,7 +41,7 @@ async function crearJuego (req, res) {
 
 async function borrarJuego( req, res) {
     try{
-        const juego = await modeljuegos.deleteGame(Number(req.params.id))
+        const juego = await modeljuegos.deleteGame(req.params.id)
         console.log(juego)
         if(!juego) {
             return res.status(404).json({"error": "ID invalido"})
@@ -56,7 +56,7 @@ async function borrarJuego( req, res) {
 async function actualizarJuego (req, res) {
     try{
         const {nombre, precio} = req.body
-        const juego = await modeljuegos.updateJuegos(Number(req.params.id), {nombre, precio})
+        const juego = await modeljuegos.updateJuegos(req.params.id, {nombre, precio})
         if(!juego) {
             return res.status(404).json({"error": "ID invalido"})
         }
