@@ -1,31 +1,12 @@
+const modelUsers = require('../models/users.models')
 
-
-
-let usuarios = [
-    {id: 1, nombre: "Jesús", username: "elcrack05", email: "jesus@example.com" }
-]
-
-
-const crearUsuario = (req, res) =>{
-    const {nombre, username, email} = req.body
-    let nuevoUser = {
-        id: usuarios.length + 1,
-        nombre: nombre,
-        username: username,
-        email: email
-    };
-    usuarios.push(nuevoUser)
-
-    return res.status(201).json(nuevoUser)
-}
-
-
-const obtenerUsuarios = (req, res) => {
-    return res.json(usuarios)
-}
-
-
-module.exports = {
-    crearUsuario,
-    obtenerUsuarios
+async function obtenerUserById(req, res) {
+    const id = req.params.id
+    try{
+        const User = await modelUsers.getUsersById(id)
+        res.status(200).json(User)
+    }catch(error){
+        console.error("Error al obtener usuario", error)
+        res.status(500).json("Error interno del servidor")
+    }
 }
