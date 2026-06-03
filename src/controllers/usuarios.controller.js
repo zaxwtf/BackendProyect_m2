@@ -38,16 +38,15 @@ async function crearUser(req, res){
     const {nombre, apellido1, apellido2, userName, email, password} = req.body
     const userNameUnico = `${userName}#${Math.trunc(Math.random() * 1000)}`
     try{
+        const passwordHashed = await bcrypt.hash(password, 10)
         const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password: passwordHashed})
         if (!newUser){
             return res.status(404).json("Error del usuario")
         }
-//comprobar email existente
-
-
-
-
-        const passwordHashed = await bcrypt.hash(password, 10)
+        if (modelUsers.validateEmail(email)){
+            return res.status(409).json("Este email ya está registrado")
+        }
+        
         return res.status(201).json({
             id: newUser._id,
             nombre,
