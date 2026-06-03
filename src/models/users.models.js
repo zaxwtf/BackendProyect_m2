@@ -65,11 +65,16 @@ async function deleteUser(id) {
     return await User.findByIdAndDelete(id)
 }
 
+async function validateEmail(email){
+    return await User.findOne({email: email})
+}
+
 
 module.exports = {
     getUsersById,
     getUsersByEmail,
     crearUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    validateEmail
 }
