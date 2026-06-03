@@ -11,7 +11,7 @@ const validarUser = [
     body('email')
         .notEmpty().isEmail().withMessage('El usuario debe tener un correo valido'),
     body('password')
-        .notEmpty().isLength({min: 8, max: 20}).withMessage('La contraseña debe ser de entre 8 y 20 caracteres')
+        .isLength({min: 8, max: 20}).withMessage('La contraseña debe ser de entre 8 y 20 caracteres')
 ]
 
 module.exports ={
