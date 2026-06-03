@@ -1,4 +1,5 @@
 const modelUsers = require('../models/users.models')
+const bcrypt = require('bcrypt')
 
 async function obtenerUserById(req, res) {
     const id = req.params.id
@@ -37,11 +38,25 @@ async function crearUser(req, res){
     const {nombre, apellido1, apellido2, userName, email, password} = req.body
     const userNameUnico = `${userName}#${Math.trunc(Math.random() * 1000)}`
     try{
-        const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password})
+        const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password: passwordHashed})
         if (!newUser){
             return res.status(404).json("Error del usuario")
         }
-        return res.status(200).json(newUser)
+//comprobar email existente
+
+
+
+
+        const passwordHashed = await bcrypt.hash(password, 10)
+        return res.status(201).json({
+            id: newUser._id,
+            nombre,
+            apellido1,
+            apellido2,
+            email,
+            userName,
+            userNameUnico,
+        })
     }catch(error){
         console.error("Error al crear usuario", error)
         res.status(500).json("Error interno del servidor")
