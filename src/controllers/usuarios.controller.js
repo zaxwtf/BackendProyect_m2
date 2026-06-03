@@ -34,10 +34,10 @@ async function obtenerUserByEmail(req, res) {
 
 
 async function crearUser(req, res){
-    const {nombre, apellido1, apellido2, userName, email} = req.body
+    const {nombre, apellido1, apellido2, userName, email, password} = req.body
     const userNameUnico = `${userName}#${Math.trunc(Math.random() * 1000)}`
     try{
-        const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email})
+        const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password})
         if (!newUser){
             return res.status(404).json("Error del usuario")
         }
