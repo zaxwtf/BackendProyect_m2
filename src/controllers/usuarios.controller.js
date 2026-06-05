@@ -1,5 +1,6 @@
 const modelUsers = require('../models/users.models')
 const bcrypt = require('bcrypt')
+const jwt = require ('jsonwebtoken')
 
 async function obtenerUserById(req, res) {
     const id = req.params.id
@@ -82,10 +83,11 @@ async function loginUser(req, res) {
             return res.status(401).json({"error": "Credenciales incorrectas"})
         }
 
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
+
         res.status(201).json({
             message: "login correcto",
-            id: user._id,
-            email: user.email,
+            token
         });
     } catch(error){
         console.error("error:", error)
