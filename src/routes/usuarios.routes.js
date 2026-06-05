@@ -3,7 +3,6 @@ const router = Router()
 const usuariosController = require('../controllers/usuarios.controller');
 const {validarUser} = require('../middlewares/validarUser');
 const { validate } = require('../middlewares/validar');
-const loginRules = require('../middlewares/validarLogin');
 
 
 //Rutas usuarios
