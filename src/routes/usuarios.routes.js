@@ -9,7 +9,9 @@ const { validate } = require('../middlewares/validar');
 
 router.post('/crear', validarUser, validate, usuariosController.crearUser);
 router.get('/email', usuariosController.obtenerUserByEmail)
+router.get('/whoami', usuariosController.whoAmI)
 router.get('/:id', usuariosController.obtenerUserById)
 router.post('/login', usuariosController.loginUser)
+
 
 module.exports = router;
