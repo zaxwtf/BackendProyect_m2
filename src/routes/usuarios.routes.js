@@ -11,8 +11,10 @@ const { verifyToken } = require('../middlewares/verificarToken');
 
 router.post('/crear', validarUser, validate, usuariosController.crearUser);
 router.get('/email', usuariosController.obtenerUserByEmail)
+router.get('/profile', verifyToken, usuariosController.getProfile)
+router.post('/login', usuariosController.loginUser)
 router.get('/:id', usuariosController.obtenerUserById)
-router.post('/login', verifyToken, usuariosController.loginUser)
+
 
 
 module.exports = router;
