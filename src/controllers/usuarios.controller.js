@@ -50,17 +50,8 @@ async function crearUser(req, res){
         if (!newUser){
             return res.status(404).json("Error del usuario")
         }
-        
-        
-        return res.status(201).json({
-            id: newUser._id,
-            nombre,
-            apellido1,
-            apellido2,
-            email,
-            userName,
-            userNameUnico,
-        })
+
+        return res.status(201).json(newUser)
     }catch(error){
         console.error("Error al crear usuario", error)
         res.status(500).json("Error interno del servidor")
@@ -83,7 +74,7 @@ async function loginUser(req, res) {
             return res.status(401).json({"error": "Credenciales incorrectas"})
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "7d"})
 
         res.status(201).json({
             message: "login correcto",
@@ -104,7 +95,7 @@ async function getProfile(req, res) {
         const userFound = await modelUsers.getUsersById(userId)
 
         return res.status(200).json({message: "Usuario encontrado", user: userFound})
-        
+
     }catch(error){
         res.status(500).json({message: "Error interno del sistema", error});
     }
