@@ -96,30 +96,10 @@ async function loginUser(req, res) {
 
 }
 
-function whoAmI(req, res) {
-    try{
-        const authHeader = req.headers.authorization;
-
-        if (!authHeader){
-            return res.status(401).json({message: "No hay token"})
-        }
-
-        const token = authHeader.split(" ")[1]
-
-        const data = jwt.verify(token, process.env.JWT_SECRET)
-
-        return res.status(200).json({message: "Token valido", id: data._id
-        })
-    }catch(error){
-        return res.status(401).json({message: "Token expirado"})
-    }
-}
-
 
 module.exports = {
     obtenerUserById,
     obtenerUserByEmail,
     crearUser,
     loginUser,
-    whoAmI,
 }
