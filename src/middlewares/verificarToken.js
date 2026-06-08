@@ -12,7 +12,7 @@ function verifyToken(req, res, next) {
 
         const data = jwt.verify(token, process.env.JWT_SECRET)
 
-        return req.usuario = data
+        req.usuario = data
 
         next()
     }catch(error){
