@@ -97,9 +97,24 @@ async function loginUser(req, res) {
 }
 
 
+async function getProfile(req, res) {
+    try{
+        const userId = req.usuario.id
+
+        const userFound = await modelUsers.getUsersById(userId)
+
+        return res.status(200).json({message: "Usuario encontrado", user: userFound})
+        
+    }catch(error){
+        res.status(500).json({message: "Error interno del sistema", error});
+    }
+}
+
+
 module.exports = {
     obtenerUserById,
     obtenerUserByEmail,
     crearUser,
     loginUser,
+    getProfile
 }
