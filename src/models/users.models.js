@@ -42,7 +42,7 @@ const User = mongoose.model("User", userSchema)
 
 
 async function getUsersById(id) {
-    return await User.findById(id)
+    return await User.findById(id).select("-password")
 }
 
 async function getUsersByEmail(email) {
