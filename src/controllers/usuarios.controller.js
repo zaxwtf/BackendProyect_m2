@@ -111,7 +111,7 @@ function whoAmI(req, res) {
         return res.status(200).json({message: "Token valido", id: data._id
         })
     }catch(error){
-        return res.status(401).json({message: "token expirado"})
+        return res.status(401).json({message: "Token expirado"})
     }
 }
 
