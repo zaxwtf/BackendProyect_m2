@@ -12,6 +12,7 @@ const { verifyToken } = require('../middlewares/verificarToken');
 router.post('/crear', validarUser, validate, usuariosController.crearUser);
 router.get('/email', usuariosController.obtenerUserByEmail)
 router.get('/profile', verifyToken, usuariosController.getProfile)
+//router.post('/profile/favs', verifyToken, usuariosController.agregarJuegoFav)
 router.post('/login', usuariosController.loginUser)
 router.get('/:id', usuariosController.obtenerUserById)
 

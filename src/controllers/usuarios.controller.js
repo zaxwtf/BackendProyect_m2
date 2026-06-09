@@ -1,4 +1,5 @@
 const modelUsers = require('../models/users.models')
+const modelJuegos = require('../models/videojuegos.models')
 const bcrypt = require('bcrypt')
 const jwt = require ('jsonwebtoken')
 
@@ -36,7 +37,7 @@ async function obtenerUserByEmail(req, res) {
 
 
 async function crearUser(req, res){
-    const {nombre, apellido1, apellido2, userName, email, password} = req.body
+    const {nombre, apellido1, apellido2, userName, email, password, juegosFav} = req.body
     const userNameUnico = `${userName}#${Math.trunc(Math.random() * 1000)}`
     try{
         const passwordHashed = await bcrypt.hash(password, 10)
@@ -45,7 +46,7 @@ async function crearUser(req, res){
             console.log(emailExiste)
             return res.status(409).json("Este email ya está registrado")
         }
-        const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password: passwordHashed})
+        const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password: passwordHashed, juegosFav})
         
         if (!newUser){
             return res.status(404).json("Error del usuario")
@@ -102,10 +103,28 @@ async function getProfile(req, res) {
 }
 
 
+// async function agregarJuegoFav (req, res) {
+//     const {gameId} = req.body
+//     console.log(gameId)
+//     try{
+//         const userId = req.usuario.id
+//         const gameAdded = await modelUsers.saveGameFav(userId, gameId)
+
+//         console.log(gameAdded)
+
+//         return res.status(201).json(juego)
+//     }catch(error){
+//         console.error("Error al crear juego", error)
+//         return res.status(500).json({"error": "Error interno del servidor"})
+//     }
+// }
+
+
 module.exports = {
     obtenerUserById,
     obtenerUserByEmail,
     crearUser,
     loginUser,
-    getProfile
+    getProfile,
+    // agregarJuegoFav
 }

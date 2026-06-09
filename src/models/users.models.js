@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        juegosFav: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Videogame",
+            required: true
+        }],
     },
     {
         timestamps: true
@@ -69,6 +74,13 @@ async function validateEmail(email){
     return await User.findOne({email: email})
 }
 
+// async function saveGameFav(userId, gameId){
+//     console.log(userId, gameId)
+//     const user = await User.findById(userId)
+//     console.log(user)
+//     return await User.updateOne({_id: userId}, )
+// }
+
 
 module.exports = {
     getUsersById,
@@ -76,5 +88,6 @@ module.exports = {
     crearUser,
     updateUser,
     deleteUser,
-    validateEmail
+    validateEmail,
+    // saveGameFav
 }
