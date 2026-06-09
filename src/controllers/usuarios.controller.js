@@ -120,3 +120,27 @@ export async function agregarJuegoFav (req, res) {
     }
 }
 
+export async function loadFavGames(req, res) {
+    try{
+        const userId = req.usuario.id
+        const juegosFav = await modelUsers.getFavVideogames(userId)
+        res.status(200).json(juegosFav)
+    }catch(error){
+        res.status(500).json({message:"Error del sistema", error})
+
+    }
+}
+
+export async function deleteFavGame(req, res) {
+    try{
+        const userId = req.usuario.id
+        const {gameId} = req.body
+        console.log(userId, gameId)
+        const juegosFav = await modelUsers.deleteFavGame(userId, gameId)
+        console.log(juegosFav)
+        res.status(200).json(juegosFav)
+    }catch(error){
+        res.status(500).json({message:"Error del sistema", error})
+
+    }
+}
