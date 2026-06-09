@@ -20,7 +20,9 @@ const validarJuego = [
     body('genero')
         .notEmpty().withMessage('El juego debe tener género')
         .custom(genero => genders.includes(genero))
-        .withMessage('El juego debe tener un género válido')
+        .withMessage('El juego debe tener un género válido'),
+    body('completado')
+        .notEmpty().withMessage('Se debe indicar si el juego ha sido completado o no')
 ]
 
 export default validarJuego;
