@@ -80,4 +80,23 @@ export async function saveGameFav(userId, gameId){
     return resultado
 }
 
+export async function getFavVideogames(userId) {
+    const juegosFav = await User.findById(userId).select('juegosFav -_id').populate("juegosFav")
+    return juegosFav
+}
 
+export async function deleteFavGame(userId, gameId){
+    console.log("estoy dentro del delete")
+    const resultado = await User.findByIdAndUpdate(
+        userId,
+        {
+            $pull: {juegosFav: gameId}
+        },
+        {
+            new: true,
+            select: "juegosFav -_id"
+        }
+    ).populate("juegosFav")
+
+    return resultado
+}
