@@ -74,11 +74,10 @@ export async function validateEmail(email){
     return await User.findOne({email: email})
 }
 
-// export async function saveGameFav(userId, gameId){
-//     console.log(userId, gameId)
-//     const user = await User.findById(userId)
-//     console.log(user)
-//     return await User.updateOne({_id: userId}, )
-// }
+export async function saveGameFav(userId, gameId){
+    console.log(userId, gameId)
+    const resultado = await User.updateOne({_id: userId}, {$addToSet: {juegosFav: gameId}})
+    return resultado
+}
 
 
