@@ -13,6 +13,8 @@ router.post('/crear', validarUser, validate, usuariosController.crearUser);
 router.get('/email', usuariosController.obtenerUserByEmail)
 router.get('/profile', verifyToken, usuariosController.getProfile)
 router.post('/profile/favs', verifyToken, usuariosController.agregarJuegoFav)
+router.delete('/profile/favs/delete', verifyToken, usuariosController.deleteFavGame)
+router.get('/profile/favs', verifyToken, usuariosController.loadFavGames)
 router.post('/login', usuariosController.loginUser)
 router.get('/:id', usuariosController.obtenerUserById)
 
