@@ -103,19 +103,20 @@ export async function getProfile(req, res) {
 }
 
 
-// export async function agregarJuegoFav (req, res) {
-//     const {gameId} = req.body
-//     console.log(gameId)
-//     try{
-//         const userId = req.usuario.id
-//         const gameAdded = await modelUsers.saveGameFav(userId, gameId)
+export async function agregarJuegoFav (req, res) {
+    const {gameId} = req.body
+    console.log("console log inicio agregarjuegoFav",gameId)
+    try{
+        const userId = req.usuario.id
+        console.log("userID: ", userId)
+        const gameAdded = await modelUsers.saveGameFav(userId, gameId)
 
-//         console.log(gameAdded)
+        console.log("clg para gameadded", gameAdded)
 
-//         return res.status(201).json(juego)
-//     }catch(error){
-//         console.error("Error al crear juego", error)
-//         return res.status(500).json({"error": "Error interno del servidor"})
-//     }
-// }
+        return res.status(201).json(gameAdded)
+    }catch(error){
+        console.error("Error al crear juego", error)
+        return res.status(500).json({"error": "Error al agregar el juego"})
+    }
+}
 
