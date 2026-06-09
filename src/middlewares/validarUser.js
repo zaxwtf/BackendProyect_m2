@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator')
+import { body, validationResult } from "express-validator";
 
 
 const validarUser = [
@@ -14,6 +14,4 @@ const validarUser = [
         .isLength({min: 8, max: 20}).withMessage('La contraseña debe ser de entre 8 y 20 caracteres')
 ]
 
-module.exports ={
-validarUser
-}
+export default validarUser;

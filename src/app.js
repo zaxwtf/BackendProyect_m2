@@ -1,7 +1,7 @@
-const express = require('express')
-const rutasJuegos = require('./routes/juegos.routes')
-const rutasUsuarios = require('./routes/usuarios.routes')
-const cors = require('cors')
+import express from "express";
+import rutasJuegos from "./routes/juegos.routes.js";
+import rutasUsuarios from "./routes/usuarios.routes.js";
+import cors from "cors";
 
 const app = express()
 
@@ -14,4 +14,4 @@ app.use('/api/juegos', rutasJuegos)
 app.use('/api/usuarios', rutasUsuarios)
 
 
-module.exports = app;
+export default app;

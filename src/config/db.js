@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const dns = require('dns')
+import mongoose from "mongoose"
+import dns from "dns"
 
 async function connectDB(){
     const uri = process.env.MONGO_URI;
@@ -22,4 +22,4 @@ async function connectDB(){
     }
 }
 
-module.exports = connectDB;
+export default connectDB

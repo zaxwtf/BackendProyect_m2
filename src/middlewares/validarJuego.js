@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator')
+import { body, validationResult } from "express-validator";
 
 const genders = [
     "lucha",
@@ -23,6 +23,4 @@ const validarJuego = [
         .withMessage('El juego debe tener un género válido')
 ]
 
-module.exports = {
-    validarJuego
-}
+export default validarJuego;

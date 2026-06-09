@@ -1,15 +1,15 @@
-const { Router } = require('express');
+import { Router } from "express";
 const router = Router();
-const juegosController = require('../controllers/juegos.controller');
-const { validarJuego } = require('../middlewares/validarJuego');
-const { validate } = require('../middlewares/validar');
+import * as juegosController from "../controllers/juegos.controller.js";
+import validarJuego from "../middlewares/validarJuego.js";
+import validate from "../middlewares/validar.js";
 
 
 //Definimos rutas de get y post y enlazamos a la función del controller
 router.get('/', juegosController.obtenerJuegos);
-router.get('/:id', juegosController.obtenerJuegoID)
+router.get('/:id', juegosController.obtenerJuegoID);
 router.post('/crear', validarJuego, validate, juegosController.crearJuego);
 router.delete('/borrar/:id', juegosController.borrarJuego)
 router.put('/cambiar/:id', juegosController.actualizarJuego);
 
-module.exports = router;
+export default router;

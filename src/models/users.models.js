@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
@@ -46,35 +46,35 @@ const userSchema = new mongoose.Schema(
 const User = mongoose.model("User", userSchema)
 
 
-async function getUsersById(id) {
+export async function getUsersById(id) {
     return await User.findById(id).select("-password")
 }
 
-async function getUsersByEmail(email) {
+export async function getUsersByEmail(email) {
     return await User.findOne({email: email})
 }
 
-async function crearUser(data) {
+export async function crearUser(data) {
     const newUser = new User(data)
     return await newUser.save()
 }
 
-async function updateUser(id, data) {
+export async function updateUser(id, data) {
     return await User.findByIdAndUpdate(id, data, {
         new: true,
         runValidators: true,
     })
 }
 
-async function deleteUser(id) {
+export async function deleteUser(id) {
     return await User.findByIdAndDelete(id)
 }
 
-async function validateEmail(email){
+export async function validateEmail(email){
     return await User.findOne({email: email})
 }
 
-// async function saveGameFav(userId, gameId){
+// export async function saveGameFav(userId, gameId){
 //     console.log(userId, gameId)
 //     const user = await User.findById(userId)
 //     console.log(user)
@@ -82,12 +82,3 @@ async function validateEmail(email){
 // }
 
 
-module.exports = {
-    getUsersById,
-    getUsersByEmail,
-    crearUser,
-    updateUser,
-    deleteUser,
-    validateEmail,
-    // saveGameFav
-}

@@ -1,9 +1,9 @@
-const modelUsers = require('../models/users.models')
-const modelJuegos = require('../models/videojuegos.models')
-const bcrypt = require('bcrypt')
-const jwt = require ('jsonwebtoken')
+import * as modelUsers from "../models/users.models.js";
+import * as modelJuegos from "../models/videojuegos.models.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-async function obtenerUserById(req, res) {
+export async function obtenerUserById(req, res) {
     const id = req.params.id
     try{
         const User = await modelUsers.getUsersById(id)
@@ -18,7 +18,7 @@ async function obtenerUserById(req, res) {
 }
 
 
-async function obtenerUserByEmail(req, res) {
+export async function obtenerUserByEmail(req, res) {
     const email = req.query.email
     try{
         if (!email) {
@@ -36,7 +36,7 @@ async function obtenerUserByEmail(req, res) {
 }
 
 
-async function crearUser(req, res){
+export async function crearUser(req, res){
     const {nombre, apellido1, apellido2, userName, email, password, juegosFav} = req.body
     const userNameUnico = `${userName}#${Math.trunc(Math.random() * 1000)}`
     try{
@@ -60,7 +60,7 @@ async function crearUser(req, res){
 }
 
 
-async function loginUser(req, res) {
+export async function loginUser(req, res) {
     try{
         const {email, password} = req.body
         const user = await modelUsers.getUsersByEmail(req.body.email)
@@ -89,7 +89,7 @@ async function loginUser(req, res) {
 }
 
 
-async function getProfile(req, res) {
+export async function getProfile(req, res) {
     try{
         const userId = req.usuario.id
 
@@ -103,7 +103,7 @@ async function getProfile(req, res) {
 }
 
 
-// async function agregarJuegoFav (req, res) {
+// export async function agregarJuegoFav (req, res) {
 //     const {gameId} = req.body
 //     console.log(gameId)
 //     try{
@@ -119,12 +119,3 @@ async function getProfile(req, res) {
 //     }
 // }
 
-
-module.exports = {
-    obtenerUserById,
-    obtenerUserByEmail,
-    crearUser,
-    loginUser,
-    getProfile,
-    // agregarJuegoFav
-}

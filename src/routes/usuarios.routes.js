@@ -1,9 +1,9 @@
-const { Router } = require('express')
+import { Router } from "express";
 const router = Router()
-const usuariosController = require('../controllers/usuarios.controller');
-const {validarUser} = require('../middlewares/validarUser');
-const { validate } = require('../middlewares/validar');
-const { verifyToken } = require('../middlewares/verificarToken');
+import * as usuariosController from "../controllers/usuarios.controller.js";
+import validarUser from "../middlewares/validarUser.js";
+import validate from "../middlewares/validar.js";
+import verifyToken from "../middlewares/verificarToken.js";
 
 
 
@@ -18,4 +18,4 @@ router.get('/:id', usuariosController.obtenerUserById)
 
 
 
-module.exports = router;
+export default router;

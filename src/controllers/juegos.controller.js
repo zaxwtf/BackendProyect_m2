@@ -1,7 +1,7 @@
-const modelJuegos = require('../models/videojuegos.models')
+import * as modelJuegos from "../models/videojuegos.models.js";
 
 
-async function obtenerJuegos (req, res) {
+export async function obtenerJuegos (req, res) {
     try{
         const juegos = await modelJuegos.getAllVideogames()
         return res.status(200).json(juegos)
@@ -11,7 +11,7 @@ async function obtenerJuegos (req, res) {
     }
 }
 
-async function obtenerJuegoID (req, res) {
+export async function obtenerJuegoID (req, res) {
     try{
         const id = req.params.id
         const juego = await modelJuegos.getVideojuegosById(id)
@@ -28,7 +28,7 @@ async function obtenerJuegoID (req, res) {
 
 
 
-async function crearJuego (req, res) {
+export async function crearJuego (req, res) {
     const {nombre, precio, genero, completado} = req.body
     try{
         const juego = await modelJuegos.crearJuego({nombre, precio, genero, completado})
@@ -39,7 +39,7 @@ async function crearJuego (req, res) {
     }
 }
 
-async function borrarJuego( req, res) {
+export async function borrarJuego( req, res) {
     try{
         const juego = await modelJuegos.deleteGame(req.params.id)
         console.log(juego)
@@ -53,7 +53,7 @@ async function borrarJuego( req, res) {
     }
 }
 
-async function actualizarJuego (req, res) {
+export async function actualizarJuego (req, res) {
     try{
         const {nombre, precio, genero, completado} = req.body
         const juego = await modelJuegos.updateJuegos(req.params.id, {nombre, precio, genero, completado})
@@ -65,13 +65,4 @@ async function actualizarJuego (req, res) {
     console.error('Error al actualizar juego')
     res.status(500).json({'error': 'Error interno del servidor'})
 }
-}
-
-
-module.exports = {
-    obtenerJuegos,
-    obtenerJuegoID,
-    crearJuego,
-    borrarJuego,
-    actualizarJuego
 }
