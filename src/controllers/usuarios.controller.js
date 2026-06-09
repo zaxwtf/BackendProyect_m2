@@ -52,7 +52,9 @@ export async function crearUser(req, res){
             return res.status(404).json("Error del usuario")
         }
 
-        return res.status(201).json(newUser)
+        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: "7d"})
+
+        return res.status(201).json({newUser, token})
     }catch(error){
         console.error("Error al crear usuario", error)
         res.status(500).json("Error interno del servidor")
