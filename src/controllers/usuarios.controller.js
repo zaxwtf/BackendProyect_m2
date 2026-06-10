@@ -43,7 +43,6 @@ export async function crearUser(req, res){
         const passwordHashed = await bcrypt.hash(password, 10)
         const emailExiste = await modelUsers.validateEmail(email)
         if (emailExiste){
-            console.log(emailExiste)
             return res.status(409).json("Este email ya está registrado")
         }
         const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password: passwordHashed, juegosFav})
@@ -107,13 +106,9 @@ export async function getProfile(req, res) {
 
 export async function agregarJuegoFav (req, res) {
     const {gameId} = req.body
-    console.log("console log inicio agregarjuegoFav",gameId)
     try{
         const userId = req.usuario.id
-        console.log("userID: ", userId)
         const gameAdded = await modelUsers.saveGameFav(userId, gameId)
-
-        console.log("clg para gameadded", gameAdded)
 
         return res.status(201).json(gameAdded)
     }catch(error){
@@ -137,9 +132,7 @@ export async function deleteFavGame(req, res) {
     try{
         const userId = req.usuario.id
         const {gameId} = req.body
-        console.log(userId, gameId)
         const juegosFav = await modelUsers.deleteFavGame(userId, gameId)
-        console.log(juegosFav)
         res.status(200).json(juegosFav)
     }catch(error){
         res.status(500).json({message:"Error del sistema", error})

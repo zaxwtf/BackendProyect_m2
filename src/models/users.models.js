@@ -75,7 +75,6 @@ export async function validateEmail(email){
 }
 
 export async function saveGameFav(userId, gameId){
-    console.log(userId, gameId)
     const resultado = await User.updateOne({_id: userId}, {$addToSet: {juegosFav: gameId}})
     return resultado
 }
@@ -86,7 +85,6 @@ export async function getFavVideogames(userId) {
 }
 
 export async function deleteFavGame(userId, gameId){
-    console.log("estoy dentro del delete")
     const resultado = await User.findByIdAndUpdate(
         userId,
         {
