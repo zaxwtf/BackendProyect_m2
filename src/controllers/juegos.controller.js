@@ -1,3 +1,4 @@
+import { getUsersById } from "../models/users.models.js";
 import * as modelJuegos from "../models/videojuegos.models.js";
 
 
@@ -31,6 +32,10 @@ export async function obtenerJuegoID (req, res) {
 export async function crearJuego (req, res) {
     const {nombre, precio, genero, completado} = req.body
     try{
+        const autor = await getUsersById(req.usuario.id)
+        if(!autor.root){
+            return res.status(401).json({message: "es necesario ser root"})
+        }
         const juego = await modelJuegos.crearJuego({nombre, precio, genero, completado})
         return res.status(201).json(juego)
     }catch(error){
@@ -39,7 +44,7 @@ export async function crearJuego (req, res) {
     }
 }
 
-export async function borrarJuego( req, res) {
+export async function borrarJuego(req, res) {
     try{
         const juego = await modelJuegos.deleteGame(req.params.id)
         console.log(juego)
