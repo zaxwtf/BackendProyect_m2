@@ -13,7 +13,6 @@ function verifyToken(req, res, next) {
         const data = jwt.verify(token, process.env.JWT_SECRET)
 
         req.usuario = data
-
         next()
     }catch(error){
         if (error.name === "TokenExpiredError"){
