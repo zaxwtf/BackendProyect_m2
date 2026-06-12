@@ -10,7 +10,7 @@ import verifyToken from "../middlewares/verificarToken.js";
 router.get('/', juegosController.obtenerJuegos);
 router.get('/:id', juegosController.obtenerJuegoID);
 router.post('/crear', validarJuego, validate, verifyToken, juegosController.crearJuego);
-router.delete('/borrar/:id', juegosController.borrarJuego)
-router.put('/cambiar/:id', juegosController.actualizarJuego);
+router.delete('/borrar/:id', verifyToken, juegosController.borrarJuego)
+router.put('/cambiar/:id', verifyToken, juegosController.actualizarJuego);
 
 export default router;
