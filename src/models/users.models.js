@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema(
             ref: "Videogame",
             required: true
         }],
+        root: {
+            type: Boolean,
+            required: true
+        }
     },
     {
         timestamps: true
