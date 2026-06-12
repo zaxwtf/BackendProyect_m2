@@ -46,6 +46,10 @@ export async function crearJuego (req, res) {
 
 export async function borrarJuego(req, res) {
     try{
+        const autor = await getUsersById(req.usuario.id)
+        if(!autor.root){
+            return res.status(401).json({message: "es necesario ser root"})
+        }
         const juego = await modelJuegos.deleteGame(req.params.id)
         console.log(juego)
         if(!juego) {
@@ -60,6 +64,10 @@ export async function borrarJuego(req, res) {
 
 export async function actualizarJuego (req, res) {
     try{
+        const autor = await getUsersById(req.usuario.id)
+        if(!autor.root){
+            return res.status(401).json({message: "es necesario ser root"})
+        }
         const {nombre, precio, genero, completado} = req.body
         const juego = await modelJuegos.updateJuegos(req.params.id, {nombre, precio, genero, completado})
         if(!juego) {
