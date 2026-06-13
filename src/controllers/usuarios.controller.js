@@ -18,24 +18,6 @@ export async function obtenerUserById(req, res) {
 }
 
 
-export async function obtenerUserByEmail(req, res) {
-    const email = req.query.email
-    try{
-        if (!email) {
-            return res.status(400).json("Falta el email para la búsqueda")
-        }
-        const User = await modelUsers.getUsersByEmail(email)
-        if (!User){
-            return res.status(404).json("Usuario no encontrado")
-        }
-        return res.status(200).json(User)
-    }catch(error){
-        console.error("Error al encontrar usuario", error)
-        res.status(500).json("Error interno del servidor")
-    }
-}
-
-
 export async function crearUser(req, res){
     const {nombre, apellido1, apellido2, userName, email, password, juegosFav} = req.body
     const userNameUnico = `${userName}#${Math.trunc(Math.random() * 1000)}`
