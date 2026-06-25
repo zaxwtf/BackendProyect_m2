@@ -7,11 +7,15 @@ const gameSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        precio: {
-            type: Number,
+        plataforma: {
+            type: String,
             required: true,
         },
         genero: {
+            type: String,
+            required: true
+        },
+        img:{
             type: String,
             required: true
         },

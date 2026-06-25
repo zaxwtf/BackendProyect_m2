@@ -14,7 +14,7 @@ const genders = [
 const validarJuego = [
     body('nombre')
         .notEmpty().withMessage('El juego debe tener nombre'),
-    body('precio')
+    body('plataforma')
         .notEmpty().withMessage('El juego debe tener precio')
         .isNumeric().withMessage('El precio debe ser un número'),
     body('genero')

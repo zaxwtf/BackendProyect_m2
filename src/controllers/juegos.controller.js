@@ -30,13 +30,13 @@ export async function obtenerJuegoID (req, res) {
 
 
 export async function crearJuego (req, res) {
-    const {nombre, precio, genero, completado} = req.body
+    const {nombre, plataforma, genero, completado, img} = req.body
     try{
         const autor = await getUsersById(req.usuario.id)
         if(!autor.root){
             return res.status(401).json({message: "es necesario ser root"})
         }
-        const juego = await modelJuegos.crearJuego({nombre, precio, genero, completado})
+        const juego = await modelJuegos.crearJuego({nombre, plataforma, genero, completado, img})
         return res.status(201).json(juego)
     }catch(error){
         console.error("Error al crear juego", error)
@@ -68,8 +68,8 @@ export async function actualizarJuego (req, res) {
         if(!autor.root){
             return res.status(401).json({message: "es necesario ser root"})
         }
-        const {nombre, precio, genero, completado} = req.body
-        const juego = await modelJuegos.updateJuegos(req.params.id, {nombre, precio, genero, completado})
+        const {nombre, plataforma, genero, completado, img} = req.body
+        const juego = await modelJuegos.updateJuegos(req.params.id, {nombre, plataforma, genero, completado, img})
         if(!juego) {
             return res.status(404).json({"error": "ID invalido"})
         }
