@@ -2,10 +2,6 @@ import { body, validationResult } from "express-validator";
 
 
 const validarUser = [
-    body('nombre')
-        .isLength({min: 2, max: 40}).withMessage('El usuario debe tener nombre'),
-    body('apellido1')
-        .isLength({min: 2, max: 40}).withMessage('El usuario debe tener por lo menos el primer apellido'),
     body('userName')
         .isLength({min: 2, max: 40}).withMessage('El usuario debe tener nombre de usuario'),
     body('email')

@@ -2,23 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
-        nombre: {
-            type: String,
-            required: true,
-        },
-        apellido1: {
-            type: String,
-            required: true,
-        },
-        apellido2: {
-            type: String,
-            required: false,
-        },
         userName: {
-            type: String,
-            required: true,
-        },
-        userNameUnico: {
             type: String,
             required: true,
         },

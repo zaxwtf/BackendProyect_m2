@@ -19,7 +19,7 @@ export async function obtenerUserById(req, res) {
 
 
 export async function crearUser(req, res){
-    const {nombre, apellido1, apellido2, userName, email, password, juegosFav} = req.body
+    const {userName, email, password, juegosFav} = req.body
     const userNameUnico = `${userName}#${Math.trunc(Math.random() * 1000)}`
     try{
         const passwordHashed = await bcrypt.hash(password, 10)
@@ -27,7 +27,7 @@ export async function crearUser(req, res){
         if (emailExiste){
             return res.status(409).json("Este email ya está registrado")
         }
-        const newUser = await modelUsers.crearUser({nombre, apellido1, apellido2, userName, userNameUnico, email, password: passwordHashed, juegosFav})
+        const newUser = await modelUsers.crearUser({userName, userNameUnico, email, password: passwordHashed, juegosFav})
         
         if (!newUser){
             return res.status(404).json("Error del usuario")
