@@ -27,7 +27,7 @@ export async function crearUser(req, res){
         if (emailExiste){
             return res.status(409).json("Este email ya está registrado")
         }
-        const newUser = await modelUsers.crearUser({userName, userNameUnico, email, password: passwordHashed, juegosFav})
+        const newUser = await modelUsers.crearUser({userName, email, password: passwordHashed, juegosFav})
         
         if (!newUser){
             return res.status(404).json("Error del usuario")
