@@ -15,8 +15,7 @@ const validarJuego = [
     body('nombre')
         .notEmpty().withMessage('El juego debe tener nombre'),
     body('plataforma')
-        .notEmpty().withMessage('El juego debe tener precio')
-        .isNumeric().withMessage('El precio debe ser un número'),
+        .notEmpty().withMessage('El juego debe tener plataforma'),
     body('genero')
         .notEmpty().withMessage('El juego debe tener género')
         .custom(genero => genders.includes(genero))
