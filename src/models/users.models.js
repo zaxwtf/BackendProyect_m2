@@ -44,8 +44,7 @@ export async function getUsersByEmail(email) {
 
 export async function crearUser(data) {
     const newUser = new User(data)
-    await newUser.save()
-    return await newUser.select("-password")
+    return await newUser.save()
 }
 
 export async function updateUser(id, data) {
